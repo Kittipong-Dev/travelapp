@@ -62,14 +62,18 @@ export default function MyApp() {
   }
 
   function highlightProvince(provinceName) {
-    const paths = document.querySelectorAll("path"); // เลือก path ทั้งหมดใน SVG
-    paths.forEach((path) => {
-      if (path.getAttribute("name") === provinceName) {
-        path.classList.add(styles.selectedProvince);
-        path.classList.remove(styles.deselectedProvince);
+    const target = document.getElementsByName(provinceName) || "Unknown";
+    if (target === "Unknown") {
+      console.error("Could not find province);
+      return;
+    }
+    console.log("Clicked on province:", provinceName);
+    if (target.classList.contains(styles.selectedProvince)) {
+        target.classList.add(styles.deselectedProvince);
+        target.classList.remove(styles.selectedProvince);
       } else {
-        path.classList.remove(styles.selectedProvince);
-        path.classList.add(styles.deselectedProvince);
+        target.classList.add(styles.selectedProvince);
+        target.classList.remove(styles.deselectedProvince);
       }
     });
   }
